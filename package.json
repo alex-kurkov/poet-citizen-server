@@ -4,8 +4,8 @@
   "description": "educational backend project for frontend app mesto",
   "main": "appPoetCitizen.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node appPoetCitizen.js",
+    "dev": "nodemon appPoetCitizen.js"
   },
   "keywords": [
     "alex",
