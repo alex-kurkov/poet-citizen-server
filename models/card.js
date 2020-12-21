@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const cardSchema = new mongoose.Schema({
-  text: {
+  rhyme: {
     type: String,
     required: true,
-    minlength: 100,
+    minlength: 2,
     maxlength: 3000,
   },
   owner: {
@@ -16,9 +16,17 @@ const cardSchema = new mongoose.Schema({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
     default: [],
   },
+  dislikes: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
+    default: [],
+  },
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  link: {
+    type: String,
+    default: 'https://picsum.photos/264/200',
   },
 });
 

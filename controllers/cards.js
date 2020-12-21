@@ -3,17 +3,17 @@ const { NotFoundError, ForbiddenError } = require('../errors/index');
 
 module.exports.getCards = (req, res, next) => {
   Card.find()
-    .populate(['owner', 'likes'])
+    .populate(['owner', 'likes', 'dislikes'])
     .orFail(new NotFoundError('карточки не найдены'))
     .then((cards) => res.status(200).send(cards))
     .catch(next);
 };
 
 module.exports.postCard = (req, res, next) => {
-  const { name, link } = req.body;
+  const { rhyme, link } = req.body;
 
   Card.create({
-    name,
+    rhyme,
     link,
     owner: { _id: req.user._id },
   })
@@ -43,7 +43,24 @@ const handleLike = (method) => (req, res, next) => {
     { [method]: { likes: req.user._id } },
     { new: true },
   )
-    .populate('likes')
+    .populate(['dislikes', 'likes'])
+    .orFail(new NotFoundError('карточка не найдена'))
+    .then((card) => {
+      res.status(200).send({ card, message });
+    })
+    .catch(next);
+};
+const handleDislike = (method) => (req, res, next) => {
+  const message = method === '$addToSet'
+    ? 'лайк!'
+    : 'лайк, только наоборот(';
+
+  Card.findByIdAndUpdate(
+    req.params.cardId,
+    { [method]: { dislikes: req.user._id } },
+    { new: true },
+  )
+    .populate(['dislikes', 'likes'])
     .orFail(new NotFoundError('карточка не найдена'))
     .then((card) => {
       res.status(200).send({ card, message });
@@ -52,4 +69,6 @@ const handleLike = (method) => (req, res, next) => {
 };
 
 module.exports.likeCard = handleLike('$addToSet');
-module.exports.dislikeCard = handleLike('$pull');
+module.exports.removeLikeCard = handleLike('$pull');
+module.exports.dislikeCard = handleDislike('$addToSet');
+module.exports.removeDislikeCard = handleDislike('$pull');

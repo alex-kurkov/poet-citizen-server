@@ -23,27 +23,11 @@ module.exports.getUserById = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.patchAvatar = (req, res, next) => {
-  const { avatar } = req.body;
-  User.findByIdAndUpdate(
-    req.user._id,
-    { avatar },
-    {
-      new: true,
-      runValidators: true,
-      upsert: false,
-    },
-  )
-    .orFail(new NotFoundError('пользователь не найден'))
-    .then((user) => res.status(200).send(user))
-    .catch(next);
-};
-
 module.exports.updateUser = (req, res, next) => {
-  const { name, about } = req.body;
+  const { name } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
-    { name, about },
+    { name },
     {
       new: true,
       runValidators: true,

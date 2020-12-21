@@ -12,8 +12,6 @@ const signupValidator = celebrate({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
     name: Joi.string(),
-    about: Joi.string(),
-    avatar: Joi.string().uri(),
   }),
 });
 
@@ -33,19 +31,13 @@ const updateCardValidator = celebrate({
 });
 const postCardValidator = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30).required(),
-    link: Joi.string().uri().required(),
-  }),
-});
-const patchAvatarValidator = celebrate({
-  body: Joi.object().keys({
-    avatar: Joi.string().uri().required(),
+    rhyme: Joi.string().min(2).max(3000).required(),
+    link: Joi.string().uri(),
   }),
 });
 const updateUserValidator = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required(),
-    about: Joi.string().min(2).max(300).required(),
   }),
 });
 
@@ -54,7 +46,6 @@ module.exports = {
   signupValidator,
   updateCardValidator,
   postCardValidator,
-  patchAvatarValidator,
   updateUserValidator,
   getUserByIdValidator,
 };
