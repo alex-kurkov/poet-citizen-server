@@ -11,7 +11,7 @@ const notFoundRouter = require('./404');
 router.post('/signup', signupValidator, createUser);
 router.post('/signin', loginValidator, login);
 router.post('/signout', logout);
-router.use('/cards', auth, cardsRouter);
+router.use('/cards', cardsRouter);
 router.use('/users', auth, usersRouter);
 router.get('/crash-test', () => {
   setTimeout(() => {
