@@ -24,10 +24,10 @@ module.exports.getUserById = (req, res, next) => {
 };
 
 module.exports.updateUser = (req, res, next) => {
-  const { name } = req.body;
+  const { name, surname } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
-    { name },
+    { name, surname },
     {
       new: true,
       runValidators: true,
