@@ -39,6 +39,7 @@ const postCardValidator = celebrate({
 const updateUserValidator = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required(),
+    surname: Joi.string().min(2).max(30).required(),
   }),
 });
 
