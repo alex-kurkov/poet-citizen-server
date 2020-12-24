@@ -28,6 +28,10 @@ const cardSchema = new mongoose.Schema({
     type: String,
     default: 'https://picsum.photos/264/200',
   },
+  organization: {
+    type: String,
+    default: 'Вигилантское движение',
+  },
 });
 
 module.exports = mongoose.model('card', cardSchema);

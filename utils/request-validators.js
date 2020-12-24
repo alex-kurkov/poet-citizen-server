@@ -34,12 +34,14 @@ const postCardValidator = celebrate({
   body: Joi.object().keys({
     rhyme: Joi.string().min(2).max(3000).required(),
     link: Joi.string().uri(),
+    organization: Joi.string().max(30),
   }),
 });
 const updateUserValidator = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required(),
     surname: Joi.string().min(2).max(30).required(),
+
   }),
 });
 

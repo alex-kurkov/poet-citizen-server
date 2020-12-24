@@ -10,11 +10,12 @@ module.exports.getCards = (req, res, next) => {
 };
 
 module.exports.postCard = (req, res, next) => {
-  const { rhyme, link } = req.body;
+  const { rhyme, link, organization } = req.body;
 
   Card.create({
     rhyme,
     link,
+    organization,
     owner: { _id: req.user._id },
   })
     .then((card) => res.status(200).send(card))
